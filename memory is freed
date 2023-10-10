@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Structure definition for a queue node
+struct Node {
+    int value;
+    struct Node* next;
+};
+
+int main() {
+    int array[] = {1, 2, 4, 5, 6, 7, 8, 9, 10, 11};
+    int arraySize = sizeof(array) / sizeof(array[0]);
+
+    // Create the queue
+    struct Node* head = NULL;
+    struct Node* tail = NULL;
+
+    // Enqueue elements from the array
+    for (int i = 0; i < arraySize; i++) {
+        // Create a new node
+        struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+        newNode->value = array[i];
+        newNode->next = NULL;
+
+        // If the queue is empty, set the new node as the head
+        if (head == NULL) {
+            head = newNode;
+        }
+        // Otherwise, add the new node to the end of the queue
+        else {
+            tail->next = newNode;
+        }
+        // Update the tail pointer
+        tail = newNode;
+    }
+
+    // Print the first five values of the queue
+    printf("First 5 values:\n");
+    struct Node* current = head;
+    int count = 0;
+    while (current != NULL && count < 5) {
+        printf("%d\n", current->value);
+        current = current->next;
+        count++;
+    }
+
+    // Print the first seven values of the queue
+    printf("First 7 values:\n");
+    current = head;
+    count = 0;
+    while (current != NULL && count < 7) {
+        printf("%d\n", current->value);
+        current = current->next;
+        count++;
+    }
+
+    // Free up the memory
+    current = head;
+    while (current != NULL) {
+        struct Node* temp = current;
+        current = current->next;
+        free(temp);
+    }
+
+    printf("Memory is freed.\n");
+
+    return 0;
+}
